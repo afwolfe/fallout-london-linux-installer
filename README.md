@@ -43,6 +43,7 @@ Options:
   --f4-app-path <path>                          Path to the Fallout 4 Steam installation directory
   --f4-prefix <path>                            Path for the Fallout 4 Proton prefix
   --folon-path <path>                           Path to the Fallout London installation directory
+  --skip-downgrade                              Skip the Fallout 4 downgrader script
   -l <code>, --locale <code>                    Downgrader: Locale code for Fallout 4 depots (e.g., 'en', 'es', 'fr')
   -u <username>, --steam-username <username>    Downgrader: Your Steam username for steamcmd
   --owns-automatron                             Downgrader: Set to true if you own the Automatron DLC

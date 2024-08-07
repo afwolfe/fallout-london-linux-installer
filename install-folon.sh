@@ -6,6 +6,7 @@ FALLOUT4_STEAM_ID="377160"
 FOLON_GOG_ID="1491728574"
 
 # Downgrader variables
+SKIP_DOWNGRADE="false"
 export STEAM_APP_PATH="${STEAM_APP_PATH}"
 export LOCALE_CODE="${LOCALE_CODE}"
 export STEAM_USERNAME="${STEAM_USERNAME}"
@@ -19,6 +20,7 @@ function help() {
   echo "  --f4-app-path <path>                          Path to the Fallout 4 Steam installation directory"
   echo "  --f4-prefix <path>                            Path for the Fallout 4 Proton prefix"
   echo "  --folon-path <path>                           Path to the Fallout London installation directory"
+  echo "  --skip-downgrade                              Skip the Fallout 4 downgrader script"
   echo "  -l <code>, --locale <code>                    Downgrader: Locale code for Fallout 4 depots (e.g., 'en', 'es', 'fr')"
   echo "  -u <username>, --steam-username <username>    Downgrader: Your Steam username for steamcmd"
   echo "  --owns-automatron                             Downgrader: Set to true if you own the Automatron DLC"
@@ -35,6 +37,9 @@ while [[ $# -gt 0 ]]; do
     --folon-path)
       FOLON_PATH="$2"
       shift 2 ;;
+    --skip-downgrade)
+      SKIP_DOWNGRADE="true"
+      shift 1 ;;
     -l|--locale)  
       export LOCALE_CODE="$2"
       shift 2 ;;
@@ -147,11 +152,15 @@ function check_cmds() {
 }
 
 function downgrade_fallout4() {
-  linux-fallout4-downgrader/downgrade.sh
-  status=$?
-  if [[ $status -ne 0 ]]; then
-    echo "Failed to downgrade Fallout 4 successfully"
-    exit 1
+  if [[ "$SKIP_DOWNGRADE" != "true" ]]; then
+    linux-fallout4-downgrader/downgrade.sh
+    status=$?
+    if [[ $status -ne 0 ]]; then
+      echo "Failed to downgrade Fallout 4 successfully"
+      exit 1
+    fi
+  else
+    echo "Skipping downgrade"
   fi
 }
 
@@ -216,10 +225,14 @@ function install_folon_appdata() {
   fi
 }
 
-
+# Check environment first
 check_cmds
 check_paths
+
+# F4 Downgrade
 downgrade_fallout4
+
+# Create mod archive
 mod_archive_output="$(make_folon_mod_archive)"
 status=$?
 if [[ $status -ne 0 ]]; then
@@ -228,9 +241,12 @@ if [[ $status -ne 0 ]]; then
   exit 1
 fi
 install_folon_data
+
+# Install other assets
 install_f4se
 install_folon_config
 install_folon_appdata
+
 echo "Successfully installed Fallout London!"
 echo "Mod archive created at: $mod_archive_output"
 # FIXME: Reprint warning that mod is not automatically installed
