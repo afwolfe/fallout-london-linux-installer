@@ -169,26 +169,18 @@ function install_f4se() {
     echo "ERROR: Failed to install F4SE files"
     exit 1
   fi
-  # TODO: Allow getting F4SE directly from GitHub?
-  # F4SE_VERSION="0.6.23"
-  # F4SE_VERSION_WITH_UNDERSCORES=$(echo "$F4SE_VERSION" | tr . _)
-  # F4SE_RELEASE="https://github.com/ianpatt/f4se/releases/download/v${F4SE_VERSION}/f4se_${F4SE_VERSION_WITH_UNDERSCORES}.7z"
 }
 
 function make_folon_mod_archive() {
-  # TODO: get paths from input
-  # read -p "Where would you like to install the Fallout London mod archive?" modLocation
-  echo "Creating FOLON mod archive"
   local buildId=$(jq -r '.buildId' "$FOLON_PATH/goggame-$FOLON_GOG_ID.info")
   local archivePath="$FOLON_PATH/FalloutLondon-${buildId}.7z"
-  if [[ -f "${archivePath}" ]]; then
-    echo "INFO: Archive for $buildId already exists, skipping"
-  else
-    7z a "${archivePath}" "${FOLON_PATH}/Data"
+  # Only create zip if archive for buildId doesn't exist
+  if [[ ! -f "${archivePath}" ]]; then
+    output=$(7z a "${archivePath}" "${FOLON_PATH}/f4se_loader.exe")
     status=$?
     if [[ $status -ne 0 ]]; then
-      echo "ERROR: Failed to create mod archive"
-      exit 1
+      echo "$output"
+      return 1
     fi
   fi
   echo "$archivePath"
@@ -196,7 +188,6 @@ function make_folon_mod_archive() {
 
 function install_folon_data() {
   echo "WARN: Installing the mod archive is not automated, please install the archive using Mod Organizer 2 or your preferred mod manager..."
-  read -p "Press enter to continue" _
 }
 
 function install_folon_config() {
@@ -229,9 +220,18 @@ function install_folon_appdata() {
 check_cmds
 check_paths
 downgrade_fallout4
-make_folon_mod_archive
+mod_archive_output="$(make_folon_mod_archive)"
+status=$?
+if [[ $status -ne 0 ]]; then
+  echo "Error while creating Fallout London archive"
+  echo "$mod_archive_output"
+  exit 1
+fi
 install_folon_data
 install_f4se
 install_folon_config
 install_folon_appdata
 echo "Successfully installed Fallout London!"
+echo "Mod archive created at: $mod_archive_output"
+# FIXME: Reprint warning that mod is not automatically installed
+install_folon_data
