@@ -5,9 +5,10 @@ An unofficial installer for [Fallout London](https://fallout4london.com/) for th
 ## Prerequisites
 
 - p7zip
+- [protontricks](https://github.com/Matoking/protontricks)
 - [steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD)
 - Steam for Linux with Fallout 4 installed
-- Fallout London installed via GOG/Heroid Games Launcher
+- Fallout London installed via GOG/Heroic Games Launcher
 
 ## Instructions
 
