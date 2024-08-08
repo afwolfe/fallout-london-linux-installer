@@ -181,7 +181,8 @@ function install_f4se() {
 }
 
 function make_folon_mod_archive() {
-  local buildId=$(jq -r '.buildId' "$FOLON_PATH/goggame-$FOLON_GOG_ID.info")
+  local buildId
+  buildId=$(jq -r '.buildId' "$FOLON_PATH/goggame-$FOLON_GOG_ID.info")
   local archivePath="$FOLON_PATH/FalloutLondon-${buildId}.7z"
   # Only create zip if archive for buildId doesn't exist
   if [[ ! -f "${archivePath}" ]]; then
