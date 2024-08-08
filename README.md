@@ -16,12 +16,14 @@ An unofficial installer for [Fallout London](https://fallout4london.com/) for th
 
 1. Ensure all prerequisites are met.
 2. Run Fallout 4 at least once to ensure the game has created the expected files and directories (and Proton prefix)
-3. Run `./install-folon.sh` and answer all prompts.
-4. Verify that the script completes successfully.
-5. Install the FalloutLondon-$BUILD_ID.7z file using your preferred mod manager.
+3. Clone this repo with `git clone --recurse-submodules https://github.com/afwolfe/fallout-london-linux-installer.git`
+   - The `--recurse-submodules` argument is important to clone the downgrader.
+4. Run `./install-folon.sh` and answer all prompts.
+5. Verify that the script completes successfully.
+6. Install the FalloutLondon-$BUILD_ID.7z file using your preferred mod manager.
    - [rockerbacon/modorganizer2-linux-installer](https://github.com/rockerbacon/modorganizer2-linux-installer) - provides an automated way to install MO2 for Proton games
    - If using MO2 - ensure that you either disable profile-specific INIS or copy the recommended configurations into the profile
-6. Launch the game via f4se_loader.exe
+7. Launch the game via f4se_loader.exe
 
 ## Advanced Usage
 
@@ -55,6 +57,28 @@ Ex:
 steamcmd +login mysteamusername +quit
 ./install-folon.sh -l en -u mysteamusername --owns-automatron
 ```
+
+## License
+
+> Fallout London Proton Installer
+> Copyright (C) 2024 afwolfe
+>
+> This program is free software: you can redistribute it and/or modify
+> it under the terms of the GNU General Public License as published by
+> the Free Software Foundation, either version 3 of the License, or
+> (at your option) any later version.
+>
+> This program is distributed in the hope that it will be useful,
+> but WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> GNU General Public License for more details.
+>
+> You should have received a copy of the GNU General Public License
+> along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+This tool uses a modified version of [juliamertz/linux-fallout4-downgrader](https://github.com/juliamertz/linux-fallout4-downgrader) which is also available under GPLv3.
+
+See [LICENSE](./LICENSE.md)
 
 ## References
 
