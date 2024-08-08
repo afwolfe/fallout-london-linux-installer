@@ -15,3 +15,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
+        with:
+          ignore_paths: >-
+            test
+  bach-test:
+    name: Bach
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Bach Testing Framework
+      shell: bash
+      run: bash ./test/test.sh
