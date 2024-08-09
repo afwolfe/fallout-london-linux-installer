@@ -8,7 +8,6 @@ An unofficial installer for [Fallout London](https://fallout4london.com/) for th
 - [protontricks](https://github.com/Matoking/protontricks)
 - [jq](https://github.com/jqlang/jq)
 - [steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD)
-  - NOTE: The downgrader expects your steamcmd "STEAMROOT" to be at `~/.steam/steamcmd`
 - Steam for Linux with Fallout 4 installed
 - Fallout London installed via GOG/Heroic Games Launcher
 
@@ -48,7 +47,8 @@ Options:
   --skip-downgrade                              Skip the Fallout 4 downgrader script
   -l <code>, --locale <code>                    Downgrader: Locale code for Fallout 4 depots (e.g., 'en', 'es', 'fr')
   -u <username>, --steam-username <username>    Downgrader: Your Steam username for steamcmd
-  --owns-automatron                             Downgrader: Set to true if you own the Automatron DLC
+  --owns-automatron                             Downgrader: Set this flag if you own the Automatron DLC
+  --steamcmd-root <path>                        Downgrader: Specify steamcmd STEAMROOT. Defaults to ~/.steam/steamcmd
 ```
 
 Ex:

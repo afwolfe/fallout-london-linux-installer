@@ -23,7 +23,8 @@ function help() {
   echo "  --skip-downgrade                              Skip the Fallout 4 downgrader script"
   echo "  -l <code>, --locale <code>                    Downgrader: Locale code for Fallout 4 depots (e.g., 'en', 'es', 'fr')"
   echo "  -u <username>, --steam-username <username>    Downgrader: Your Steam username for steamcmd"
-  echo "  --owns-automatron                             Downgrader: Set to true if you own the Automatron DLC"
+  echo "  --owns-automatron                             Downgrader: Set this flag if you own the Automatron DLC"
+  echo "  --steamcmd-root <path>                        Downgrader: Specify steamcmd STEAMROOT. Defaults to ~/.steam/steamcmd"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -49,6 +50,9 @@ while [[ $# -gt 0 ]]; do
     --owns-automatron)
       export OWNS_AUTOMATRON=1
       shift 1 ;;
+    --steamcmd-root)
+      export STEAMCMD_STEAMROOT="$2"
+      shift 2 ;;
     -h|--help)
       help
       exit 0 ;;
